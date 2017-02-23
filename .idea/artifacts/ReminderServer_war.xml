@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ReminderServer:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="com.shockwave.reminder.server-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="ReminderServer:war exploded" />
+    </root>
+  </artifact>
+</component>
