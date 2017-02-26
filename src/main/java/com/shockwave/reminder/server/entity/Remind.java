@@ -20,6 +20,7 @@ public class Remind {
     private String remindTitle;
 
     @Column(name = "remindDate", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date remindDate;
 
     public Remind() {
