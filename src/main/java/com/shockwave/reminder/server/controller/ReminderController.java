@@ -1,35 +1,40 @@
 package com.shockwave.reminder.server.controller;
 
 import com.shockwave.reminder.server.entity.Remind;
-import com.shockwave.reminder.server.repository.RemindRepository;
+import com.shockwave.reminder.server.service.ReminderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reminder")
 public class ReminderController {
 
     @Autowired
-    private RemindRepository remindRepository;
+    private ReminderService service;
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @RequestMapping(value = "/reminders", method = RequestMethod.GET)
     @ResponseBody
-    public Remind getReminder(){
-        List<Remind> list = remindRepository.findAll();
-        return getMockRemind();
+    public List<Remind> getAllReminders(){
+        return service.getAll();
     }
 
-    private Remind getMockRemind() {
-        Remind remind = new Remind();
-        remind.setId(1);
-        remind.setRemindTitle("My first Remind");
-        remind.setRemindDate(new Date());
-        return remind;
+    @RequestMapping(value = "/reminders/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Remind getOneReminder(@PathVariable("id") long remindId){
+        return service.getById(remindId);
     }
+
+    @RequestMapping(value = "/reminders", method = RequestMethod.POST)
+    @ResponseBody
+    public Remind saveOneReminder(@RequestBody Remind remind){
+        return service.save(remind);
+    }
+
+    @RequestMapping(value = "/reminders/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteOneReminder(@PathVariable("id") long remindId){
+        service.delete(remindId);
+    }
+
 }
